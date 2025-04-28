@@ -3,102 +3,74 @@
 import { useState } from "react";
 
 export default function Dashboard() {
-  const [projects, setProjects] = useState<{ name: string; client: string }[]>([]);
-  const [newProject, setNewProject] = useState({ name: "", client: "" });
-
-  function addProject() {
-    if (newProject.name.trim() && newProject.client.trim()) {
-      setProjects([...projects, newProject]);
-      setNewProject({ name: "", client: "" }); // Reset after adding
-    }
-  }
+  const [muslimMode, setMuslimMode] = useState(false);
 
   return (
     <main className="min-h-screen bg-tidydesk-primary text-tidydesk-light p-6">
-      <h1 className="text-3xl font-bold mb-8 text-center">TidyDesk Dashboard 📋</h1>
-
-      {/* New Project Form */}
-      <div className="bg-tidydesk-secondary p-6 rounded-xl shadow-md mb-8 max-w-md mx-auto">
-        <h2 className="text-xl font-semibold mb-4">Add New Project</h2>
-        <input
-          type="text"
-          placeholder="Project Name"
-          className="w-full p-2 mb-3 rounded border border-gray-300 text-black"
-          value={newProject.name}
-          onChange={(e) => setNewProject({ ...newProject, name: e.target.value })}
-        />
-        <input
-          type="text"
-          placeholder="Client Name"
-          className="w-full p-2 mb-3 rounded border border-gray-300 text-black"
-          value={newProject.client}
-          onChange={(e) => setNewProject({ ...newProject, client: e.target.value })}
-        />
+      {/* Top Bar */}
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold">Welcome to TidyDesk!</h1>
         <button
-          className="w-full bg-tidydesk-accent hover:bg-tidydesk-light text-white font-bold py-2 px-4 rounded"
-          onClick={addProject}
+          onClick={() => setMuslimMode(!muslimMode)}
+          className="bg-tidydesk-secondary px-4 py-2 rounded text-sm hover:bg-tidydesk-accent"
         >
-          Add Project
+          {muslimMode ? "Muslim Mode: On" : "Muslim Mode: Off"}
         </button>
       </div>
 
-      {/* Project List */}
-      <div className="max-w-2xl mx-auto mb-8">
-        {projects.length === 0 ? (
-          <p className="text-center text-gray-300">No projects yet. Add one above!</p>
-        ) : (
-          <ul className="space-y-4">
-            {projects.map((project, index) => (
-              <li key={index} className="p-4 bg-tidydesk-secondary rounded-xl shadow flex justify-between">
-                <div>
-                  <p className="font-semibold">{project.name}</p>
-                  <p className="text-sm text-tidydesk-light">Client: {project.client}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-
-      {/* Feature Sections */}
+      {/* Dashboard Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Tasks & Notes Section */}
-        <div className="bg-tidydesk-secondary p-4 rounded-xl">
-          <h2 className="text-xl font-semibold mb-2">Tasks & Notes</h2>
-          <p>Track tasks and write quick notes per project.</p>
-          <button className="mt-4 bg-tidydesk-accent text-white px-4 py-2 rounded">Go to Tasks</button>
+        {/* Recent Projects */}
+        <div className="bg-tidydesk-secondary p-6 rounded-xl shadow-md">
+          <h2 className="text-xl font-semibold mb-2">Recent Projects</h2>
+          <ul className="text-sm text-tidydesk-light">
+            <li>Brand Design for Ahmad</li>
+            <li>Marketing Plan for Fatima</li>
+            <li>Web App for Omar</li>
+          </ul>
+        </div>
+
+        {/* Gratitude Journal Shortcut */}
+        <div className="bg-tidydesk-secondary p-6 rounded-xl shadow-md flex flex-col justify-between">
+          <div>
+            <h2 className="text-xl font-semibold mb-2">Gratitude Journal</h2>
+            <p className="text-sm">Record your daily gratitude entries.</p>
+          </div>
+          <button className="mt-4 bg-tidydesk-accent text-white px-4 py-2 rounded">
+            Open Journal
+          </button>
         </div>
 
         {/* Mood Tracker */}
-        <div className="bg-tidydesk-secondary p-4 rounded-xl">
-          <h2 className="text-xl font-semibold mb-2">Mood Tracker</h2>
-          <p>Record your feelings and stay balanced while working.</p>
-          <button className="mt-4 bg-tidydesk-accent text-white px-4 py-2 rounded">Track Mood</button>
-        </div>
-
-        {/* Muslim Mode */}
-        <div className="bg-tidydesk-secondary p-4 rounded-xl">
-          <h2 className="text-xl font-semibold mb-2">Muslim Mode</h2>
-          <p>Turn on prayer reminders & calm work environment.</p>
-          <button className="mt-4 bg-tidydesk-accent text-white px-4 py-2 rounded">Toggle Muslim Mode</button>
+        <div className="bg-tidydesk-secondary p-6 rounded-xl shadow-md flex flex-col justify-between">
+          <div>
+            <h2 className="text-xl font-semibold mb-2">Mood Tracker</h2>
+            <p className="text-sm">Track how you feel each day while working.</p>
+          </div>
+          <button className="mt-4 bg-tidydesk-accent text-white px-4 py-2 rounded">
+            Track Mood
+          </button>
         </div>
 
         {/* Payment Tracker */}
-        <div className="bg-tidydesk-secondary p-4 rounded-xl">
-          <h2 className="text-xl font-semibold mb-2">Payments</h2>
-          <p>Track your payments per client project.</p>
-          <button className="mt-4 bg-tidydesk-accent text-white px-4 py-2 rounded">View Payments</button>
+        <div className="bg-tidydesk-secondary p-6 rounded-xl shadow-md flex flex-col justify-between">
+          <div>
+            <h2 className="text-xl font-semibold mb-2">Payments</h2>
+            <p className="text-sm">Track payments from clients easily.</p>
+          </div>
+          <button className="mt-4 bg-tidydesk-accent text-white px-4 py-2 rounded">
+            View Payments
+          </button>
         </div>
 
-        {/* Gratitude Journal */}
-        <div className="bg-tidydesk-secondary p-4 rounded-xl">
-          <h2 className="text-xl font-semibold mb-2">Gratitude Journal</h2>
-          <p>Write what you're grateful for and feel more positive daily.</p>
-          <button className="mt-4 bg-tidydesk-accent text-white px-4 py-2 rounded">Open Journal</button>
+        {/* Dua for Work */}
+        <div className="bg-tidydesk-secondary p-6 rounded-xl shadow-md col-span-1 md:col-span-2 text-center">
+          <h2 className="text-xl font-semibold mb-2">Dua Before Working</h2>
+          <p className="text-lg italic">
+            اللّهُمّ لا سهْلَ إِلّا ما جَعَلْتَهُ سَهْلًا
+          </p>
         </div>
       </div>
     </main>
   );
 }
-
-
