@@ -1,84 +1,61 @@
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
 
 export default function Dashboard() {
-  const [messages, setMessages] = useState<string[]>([]);
-  const [newMessage, setNewMessage] = useState("");
-
-  function sendMessage() {
-    if (newMessage.trim()) {
-      setMessages([...messages, newMessage]);
-      setNewMessage("");
-    }
-  }
-
   return (
-    <main className="min-h-screen flex bg-gray-50">
-      
+    <div className="flex min-h-screen font-sans">
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow h-screen p-6 flex flex-col">
-        <h1 className="text-2xl font-bold mb-8">TidyDesk</h1>
-        <nav className="flex-1">
-          <ul className="space-y-6">
-            <li className="font-semibold text-gray-800">Dashboard</li>
-            <li className="text-gray-600">Upload Brief</li>
-            <li className="text-gray-600">Updates</li>
-            <li className="text-gray-600">Chat</li>
-            <li className="text-gray-600">Payments</li>
-          </ul>
-        </nav>
-        <div className="text-xs text-gray-400 mt-auto">Powered by TidyDesk</div>
+      <aside className="w-64 bg-tidydesk-secondary text-tidydesk-light p-6 flex flex-col justify-between">
+        <div>
+          <h1 className="text-2xl font-bold mb-8">TidyDesk</h1>
+          <nav className="space-y-4">
+            <Link href="/dashboard" className="block hover:text-tidydesk-accent">Dashboard</Link>
+            <Link href="#" className="block hover:text-tidydesk-accent">Upload Brief</Link>
+            <Link href="#" className="block hover:text-tidydesk-accent">Updates</Link>
+            <Link href="#" className="block hover:text-tidydesk-accent">Chat</Link>
+            <Link href="#" className="block hover:text-tidydesk-accent">Payments</Link>
+          </nav>
+        </div>
+        <div className="text-xs text-tidydesk-light/70">Powered by TidyDesk</div>
       </aside>
 
       {/* Main Content */}
-      <section className="flex-1 p-8">
-        <h2 className="text-3xl font-bold mb-8">Welcome to your Client Portal!</h2>
+      <main className="flex-1 bg-tidydesk-primary p-10">
+        <h2 className="text-3xl font-bold mb-10">Welcome, User!</h2>
 
         {/* Project Brief */}
-        <div className="bg-white shadow p-6 rounded mb-6">
+        <div className="bg-tidydesk-secondary rounded-xl p-6 mb-6">
           <h3 className="text-xl font-semibold mb-2">Project Brief</h3>
-          <p className="text-blue-600 cursor-pointer">brief.pdf</p>
+          <p className="text-tidydesk-light/90">brief.pdf</p>
         </div>
 
         {/* Latest Update */}
-        <div className="bg-white shadow p-6 rounded mb-6">
+        <div className="bg-tidydesk-secondary rounded-xl p-6 mb-6">
           <h3 className="text-xl font-semibold mb-2">Latest Update</h3>
-          <p>Initial designs ready for review.</p>
+          <p className="text-tidydesk-light/90">Initial designs ready for review.</p>
         </div>
 
-        {/* Chat */}
-        <div className="bg-white shadow p-6 rounded mb-6">
+        {/* Chat Section */}
+        <div className="bg-tidydesk-secondary rounded-xl p-6 mb-6">
           <h3 className="text-xl font-semibold mb-2">Chat</h3>
-          <div className="mb-4">
-            {messages.map((msg, idx) => (
-              <p key={idx} className="bg-gray-100 p-2 rounded mb-2">{msg}</p>
-            ))}
-          </div>
-          <div className="flex">
+          <div className="flex gap-2">
             <input
               type="text"
-              className="flex-1 p-2 rounded-l border border-gray-300 text-black"
               placeholder="Type a message..."
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
+              className="flex-1 p-2 rounded border border-gray-300 text-black"
             />
-            <button
-              className="bg-blue-600 text-white px-4 py-2 rounded-r"
-              onClick={sendMessage}
-            >
-              Send
-            </button>
+            <button className="px-4 py-2 bg-tidydesk-accent text-white rounded">Send</button>
           </div>
         </div>
 
         {/* Payments */}
-        <div className="bg-white shadow p-6 rounded">
+        <div className="bg-tidydesk-secondary rounded-xl p-6">
           <h3 className="text-xl font-semibold mb-2">Payments</h3>
-          <p>£500.00 Paid</p>
+          <p className="text-tidydesk-light/90">£500.00 Paid
+          </p>
         </div>
-
-      </section>
-    </main>
+      </main>
+    </div>
   );
 }
