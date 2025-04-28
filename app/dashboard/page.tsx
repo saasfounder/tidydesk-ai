@@ -53,3 +53,68 @@ export default function Dashboard() {
     </main>
   );
 }
+"use client";
+
+import { useState } from "react";
+
+export default function Dashboard() {
+  const [projects, setProjects] = useState<{ name: string; client: string }[]>([]);
+  const [newProject, setNewProject] = useState({ name: "", client: "" });
+
+  function addProject() {
+    if (newProject.name.trim() && newProject.client.trim()) {
+      setProjects([...projects, newProject]);
+      setNewProject({ name: "", client: "" }); // Reset after adding
+    }
+  }
+
+  return (
+    <main className="min-h-screen bg-tidydesk-primary text-tidydesk-light p-6">
+      <h1 className="text-3xl font-bold mb-8 text-center">TidyDesk Dashboard 📋</h1>
+
+      {/* New Project Form */}
+      <div className="bg-tidydesk-secondary p-6 rounded-xl shadow-md mb-8 max-w-md mx-auto">
+        <h2 className="text-xl font-semibold mb-4">Add New Project</h2>
+        <input
+          type="text"
+          placeholder="Project Name"
+          className="w-full p-2 mb-3 rounded border border-gray-300 text-black"
+          value={newProject.name}
+          onChange={(e) => setNewProject({ ...newProject, name: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Client Name"
+          className="w-full p-2 mb-3 rounded border border-gray-300 text-black"
+          value={newProject.client}
+          onChange={(e) => setNewProject({ ...newProject, client: e.target.value })}
+        />
+        <button
+          className="w-full bg-tidydesk-accent hover:bg-tidydesk-light text-white font-bold py-2 px-4 rounded"
+          onClick={addProject}
+        >
+          Add Project
+        </button>
+      </div>
+
+      {/* Project List */}
+      <div className="max-w-2xl mx-auto">
+        {projects.length === 0 ? (
+          <p className="text-center text-gray-300">No projects yet. Add one above!</p>
+        ) : (
+          <ul className="space-y-4">
+            {projects.map((project, index) => (
+              <li key={index} className="p-4 bg-tidydesk-secondary rounded-xl shadow flex justify-between">
+                <div>
+                  <p className="font-semibold">{project.name}</p>
+                  <p className="text-sm text-tidydesk-light">Client: {project.client}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </main>
+  );
+}
+
